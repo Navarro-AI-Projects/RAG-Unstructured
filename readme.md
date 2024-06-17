@@ -27,7 +27,7 @@ To get started with the application, follow these steps:
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone https://github.com/Osen761/Eduass
+   git clone https://github.com/Osen761/Eduass.git
    ```
 
 2. Navigate into the cloned directory:
