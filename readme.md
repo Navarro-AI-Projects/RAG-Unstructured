@@ -27,13 +27,13 @@ To get started with the application, follow these steps:
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/Osen761/Eduass
    ```
 
 2. Navigate into the cloned directory:
 
    ```bash
-   cd enduass
+   cd eduass
    ```
 
 3. Run the setup script to install dependencies and start the application:
