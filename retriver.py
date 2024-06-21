@@ -4,12 +4,13 @@ from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmb
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
+from pathlib import Path
 
 
 def search(query):
     model_name = "models/embedding-001"
     hf = GoogleGenerativeAIEmbeddings(model=model_name)
-    client = qdrant_client.QdrantClient(path="/home/osen/local_qdrant/")
+    client = qdrant_client.QdrantClient(path=Path.home() / "local_qdrant")
     collection_name = "MyCollection"
     qdrant = Qdrant(client, collection_name, hf)
 
@@ -26,7 +27,7 @@ def retrieve_and_answer(query):
 
     model_name = "models/embedding-001"
     hf = GoogleGenerativeAIEmbeddings(model=model_name)
-    client = qdrant_client.QdrantClient(path="/home/osen/local_qdrant/")
+    client = qdrant_client.QdrantClient(path=Path.home() / "local_qdrant")
     collection_name = "MyCollection"
     qdrant = Qdrant(client, collection_name, hf)
 
