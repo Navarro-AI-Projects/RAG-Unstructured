@@ -13,17 +13,18 @@ def setup_application():
     subprocess.run([sys.executable, "-m", "venv", venv_dir])
 
     # Install requirements
-    pip_path = os.path.join(venv_dir, "bin", "pip" if os.name != 'nt' else "Scripts\\pip.exe")
+    #pip_path = os.path.join(venv_dir, "bin", "pip" if os.name != 'nt' else "Scripts\\pip.exe")
+    pip_path = os.path.join(venv_dir, "bin" if os.name != 'nt' else "Scripts", "pip" if os.name != 'nt' else "pip.exe")
     requirements_path = os.path.join(current_dir, "requirements.txt")
     subprocess.run([pip_path, "install", "-r", requirements_path])
 
     # Run the api.py script
-    python_path = os.path.join(venv_dir, "bin", "python" if os.name != 'nt' else "Scripts\\python.exe")
+    python_path = os.path.join(venv_dir, "bin" if os.name != 'nt' else "Scripts", "python" if os.name != 'nt' else "python.exe")
     api_path = os.path.join(current_dir, "main.py")
     api_process = subprocess.Popen([python_path, api_path])
 
     # Start the Streamlit application in a new terminal
-    streamlit_path = os.path.join(venv_dir, "bin", "streamlit" if os.name != 'nt' else "Scripts\\streamlit.exe")
+    streamlit_path = os.path.join(venv_dir, "bin" if os.name != 'nt' else "Scripts", "streamlit" if os.name != 'nt' else "streamlit.exe")
     ui_path = os.path.join(current_dir, "user_interface.py")
     if os.name == 'nt':
         streamlit_process = subprocess.Popen(["start", "cmd", "/k", streamlit_path, "run", ui_path], shell=True)
