@@ -9,8 +9,8 @@ class Query(BaseModel):
 
 @app.post("/answer")
 async def answer_query(query: Query):
-    results,list_res = retrieve_and_answer(query.query)
-    return {"answer": results,"context":list_res}
+    results,list_res, responseModel = retrieve_and_answer(query.query)
+    return {"answer": results,"context":list_res, "respostaLLM":responseModel}
 
 if __name__ == "__main__":
     import uvicorn

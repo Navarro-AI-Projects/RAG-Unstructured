@@ -13,16 +13,17 @@ def list_document_titles(documents_index_path):
 
     return titles
 
-st.title('_:blue[EDUASS Local GenAI Search]_ :sunglasses:')
+st.title('_:orange[Avivatec RAG]_ :sunglasses:')
 
 # Sidebar for user inputs
 st.sidebar.title("Configuration")
-google_api_key = st.sidebar.text_input("Gemini API Key", "", type="password")
-if st.sidebar.button("Submit"):
-    with open('.env', 'w') as f:
-        f.write(f"GOOGLE_API_KEY={google_api_key}")
+#google_api_key = st.sidebar.text_input("Gemini API Key", "", type="password")
+#if st.sidebar.button("Submit"):
+with open('.env', 'w') as f:
+    f.write(f"GOOGLE_API_KEY=AIzaSyBbtSUAG7E2S60Nq8uL0GPiJuxUODgzzlE")
+        # f.write(f"GOOGLE_API_KEY={google_api_key}")
 
-uploaded_file = st.sidebar.file_uploader("Upload Documents", type=['txt', 'pdf', 'docx'])
+uploaded_file = st.sidebar.file_uploader("Upload de Documentos", type=['txt', 'pdf', 'docx'])
 
 documents_index_path = os.path.join(os.path.expanduser("~"), "documents_index")
 
@@ -31,8 +32,8 @@ if uploaded_file is not None:
         f.write(uploaded_file.getbuffer())
     st.sidebar.success('File \'{}\' uploaded successfully.'.format(uploaded_file.name))
 
-    if st.sidebar.button("Index Documents"):
-        st.sidebar.text("Indexing in progress...")
+    if st.sidebar.button("Indexar Documentos"):
+        st.sidebar.text("Indexação em progresso...")
         # Call your indexing function here
         main_index(documents_index_path)
         st.sidebar.text("Indexing completed.")
@@ -41,9 +42,11 @@ document_titles = list_document_titles(documents_index_path)
 for title in document_titles:
     st.sidebar.text(title)   
 
-question = st.text_input("Ask a question based on your local files", "")
-if st.button("Ask a question"):
-    st.write("The current question is \"", question+"\"")
+question = st.text_input("Faça uma pergunta para seu ChatGPT privado", "")
+if st.button("Clique aqui para fazer sua pergunta"):
+    st.divider()
+    st.markdown("<h3 style='color: black;'>Resposta baseada estritamente nos documentos</h3>", unsafe_allow_html=True)
+    st.write("A pergunta foi \"", question+"\"")
     url = "http://localhost:8000/answer"
 
     payload = json.dumps({
@@ -62,14 +65,22 @@ if st.button("Ask a question"):
     num = []
     for n in m:
         num = num + [int(s) for s in re.findall(r'\b\d+\b', n)]
-
     st.markdown(answer)
+    
+    st.divider()
+    st.markdown("<h3 style='color: black;'>Resposta do LLM</h3>", unsafe_allow_html=True)
+    respLLM = json.loads(response.text)['respostaLLM']
+    st.markdown(respLLM)
+    
     documents = json.loads(response.text)['context']
     show_docs = []
     for n in num:
         for doc in documents:
             if int(doc['id']) == n:
                 show_docs.append(doc)
+    
+    st.divider()
+    st.markdown("<h3 style='color: black;'>Documentos baseados</h3>", unsafe_allow_html=True)
     a = 1244
     for doc in show_docs:
         with st.expander(str(doc['id'])+" - "+doc['path']):
