@@ -10,7 +10,7 @@ from google.generativeai import GenerativeModel
 
 def search(query):
     model_name = "models/embedding-001"
-    hf = GoogleGenerativeAIEmbeddings(model=model_name)
+    hf = GoogleGenerativeAIEmbeddings(model=model_name, )
     client = qdrant_client.QdrantClient(path=Path.home() / "local_qdrant")
     collection_name = "MyCollection"
     qdrant = Qdrant(client, collection_name, hf)
@@ -65,5 +65,5 @@ def retrieve_and_answer(query):
     model2 = GenerativeModel('gemini-1.5-flash') 
     responseModel = model2.generate_content(prompt2)
     print("Resposta LLM:", responseModel.text)
-
+    print("Resposta RAG:", results )
     return results,list_res, responseModel.text

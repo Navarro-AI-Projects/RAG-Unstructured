@@ -4,6 +4,11 @@ import sys
 from create_folders import create_directories
 def setup_application():
 
+    with open('.env', 'w') as f:
+        f.write(f"GOOGLE_API_KEY=AIzaSyDOwjhFu5JiIacrkOZ_AGrxG0hbuNrHkmA")
+
+    print("####################CHAVE OK")
+
     # Get the path to the current directory
     current_dir = os.path.dirname(os.path.realpath(__file__))
     documents_index_path, local_qdrant_path = create_directories()
