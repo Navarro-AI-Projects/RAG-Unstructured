@@ -12,7 +12,7 @@ def search(query):
     model_name = "models/embedding-001"
     hf = GoogleGenerativeAIEmbeddings(model=model_name, )
     client = qdrant_client.QdrantClient(path=Path.home() / "local_qdrant")
-    collection_name = "MyCollection"
+    collection_name = "CollectionWithUnstructuredIO"
     qdrant = Qdrant(client, collection_name, hf)
 
     found_docs = qdrant.similarity_search(query=query, k=10)
@@ -29,7 +29,7 @@ def retrieve_and_answer(query):
     model_name = "models/embedding-001"
     hf = GoogleGenerativeAIEmbeddings(model=model_name)
     client = qdrant_client.QdrantClient(path=Path.home() / "local_qdrant")
-    collection_name = "MyCollection"
+    collection_name = "CollectionWithUnstructuredIO"
     qdrant = Qdrant(client, collection_name, hf)
 
     found_docs = qdrant.similarity_search(query=query, k=10)

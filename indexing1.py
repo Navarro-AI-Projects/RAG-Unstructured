@@ -11,6 +11,8 @@ from qdrant_client.models import Distance, VectorParams
 import docx
 from dotenv import load_dotenv
 import os
+from unstructured.partition.pdf import partition_pdf
+
 
 load_dotenv()
 def get_files(dir):
@@ -57,7 +59,10 @@ def main_indexing(mypath):
         file_content = ""
         if file.endswith(".pdf"):
             print("indexing "+file)
+            #elements_fast = partition_pdf("example-docs/layout-parser-paper-fast.pdf", strategy="fast")
             reader = PyPDF2.PdfReader(file)
+            elements = partition_pdf(file)
+            file_content = elements
             for i in range(0,len(reader.pages)):
                 file_content = file_content + " "+reader.pages[i].extract_text()
         elif file.endswith(".txt"):
@@ -77,7 +82,7 @@ def main_indexing(mypath):
         texts = text_splitter.split_text(file_content)
         metadata = {"path":file}
         documents = [Document(text,metadata) for text in texts]
-        collection_name = "MyCollection"
+        collection_name = "CollectionWithUnstructuredIO"
         if qdrant is None:
             qdrant = Qdrant.from_documents(
                                     documents,

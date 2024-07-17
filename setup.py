@@ -7,8 +7,6 @@ def setup_application():
     with open('.env', 'w') as f:
         f.write(f"GOOGLE_API_KEY=AIzaSyDOwjhFu5JiIacrkOZ_AGrxG0hbuNrHkmA")
 
-    print("####################CHAVE OK")
-
     # Get the path to the current directory
     current_dir = os.path.dirname(os.path.realpath(__file__))
     documents_index_path, local_qdrant_path = create_directories()
@@ -19,9 +17,9 @@ def setup_application():
 
     # Install requirements
     #pip_path = os.path.join(venv_dir, "bin", "pip" if os.name != 'nt' else "Scripts\\pip.exe")
-    pip_path = os.path.join(venv_dir, "bin" if os.name != 'nt' else "Scripts", "pip" if os.name != 'nt' else "pip.exe")
-    requirements_path = os.path.join(current_dir, "requirements.txt")
-    subprocess.run([pip_path, "install", "-r", requirements_path])
+    # pip_path = os.path.join(venv_dir, "bin" if os.name != 'nt' else "Scripts", "pip" if os.name != 'nt' else "pip.exe")
+    # requirements_path = os.path.join(current_dir, "requirements.txt")
+    # subprocess.run([pip_path, "install", "-r", requirements_path])
 
     # Run the api.py script
     python_path = os.path.join(venv_dir, "bin" if os.name != 'nt' else "Scripts", "python" if os.name != 'nt' else "python.exe")

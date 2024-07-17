@@ -59,42 +59,7 @@ if st.button("Clique aqui para fazer sua pergunta"):
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
-
-    # #####
-    # try:
-    #     # Fazer a requisição POST
-    #     response = requests.request("POST", url, headers=headers, data=payload)
-
-    #     # Verificar se a requisição foi bem-sucedida
-    #     response.raise_for_status()  # Irá levantar um erro para status code 4xx/5xx
-
-    #     # Processar a resposta
-    #     response_json = response.json()
-    #     answer = response_json.get("answer")
-    #     if answer is None:
-    #         print("Chave 'answer' não encontrada na resposta")
-    #     else:
-    #         print("Resposta:", answer)
-
-    # except requests.exceptions.HTTPError as http_err:
-    #     print(f"HTTP error occurred: {http_err}")  # HTTP error
-    # except requests.exceptions.ConnectionError as conn_err:
-    #     print(f"Connection error occurred: {conn_err}")  # Connection error
-    # except requests.exceptions.Timeout as timeout_err:
-    #     print(f"Timeout error occurred: {timeout_err}")  # Timeout error
-    # except requests.exceptions.RequestException as req_err:
-    #     print(f"An error occurred: {req_err}")  # Other errors
-    # except json.JSONDecodeError:
-    #     print("Erro ao decodificar o JSON")
-
-    # #####
     print(response)
-    # try:
-    #     response_json = json.loads(response.text)
-    #     answer = response_json["answer"]
-    # except json.JSONDecodeError:
-    #     print("Erro ao decodificar o JSON")
-
 
     answer = json.loads(response.text)["answer"]
     rege = re.compile("\[Document\ [0-9]+\]|\[[0-9]+\]")
